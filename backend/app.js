@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const cors = require('./middlewares/cors');
-
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const routes = require('./routes');
@@ -21,8 +19,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 app.use(requestLogger);
-app.use(cors);
-
 app.use(routes); // all routes logic
 app.use(errorLogger);
 app.use(errors());
