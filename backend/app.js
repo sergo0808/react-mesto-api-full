@@ -7,7 +7,7 @@ const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const routes = require('./routes');
-const error = require('./middlewares/error');
+// const error = require('./middlewares/error');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -24,7 +24,7 @@ app.use(requestLogger);
 app.use(routes); // all routes logic
 app.use(errorLogger);
 app.use(errors());
-app.use(error); // centralized error handler
+// app.use(error); // centralized error handler
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
