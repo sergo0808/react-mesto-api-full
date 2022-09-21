@@ -4,6 +4,11 @@ export class Api {
   constructor(config) {
     this.url = config.url;
     this.headers = config.headers;
+    this._token = config.headers.authorization;
+  }
+
+  getToken = (token) => { // Метод принимает токен и подставляет его в заголовок объекта api
+    this._token = `Bearer ${token}`
   }
 
   _handleResponse(res) {
@@ -16,13 +21,17 @@ export class Api {
   getUserInfo() {
     return fetch(this.url + `/users/me`, {
       method: "GET",
-      headers: this.headers,
+      headers: {
+        authorization: this._token
+      }
     }).then(this._handleResponse);
   }
 
   getInitialCards() {
     return fetch(this.url + `/cards`, {
-      headers: this.headers,
+      headers: {
+        authorization: this._token
+      }
     }).then(this._handleResponse);
   }
 
