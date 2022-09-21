@@ -1,7 +1,7 @@
-export const BASE_URL = "https://api.mesto.sovickiy.nomoredomains.sbs/";
+import { config } from "./constants";
 
 export const register = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${config.url}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const register = (email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${config.url}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const authorize = (email, password) => {
 };
 
 export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${config.url}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
