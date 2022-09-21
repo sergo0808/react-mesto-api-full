@@ -39,6 +39,7 @@ function App() {
 
   const auth = async (token) => {
     const content = await CardAuth.getContent(token).then((data) => {
+      console.log(CardAuth);
       if (data) {
         setLoggedIn(true);
         setUserData(data.data.email);
