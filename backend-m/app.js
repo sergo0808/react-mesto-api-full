@@ -6,17 +6,20 @@ const { errors } = require('celebrate');
 
 const routes = require('./routes');
 const error = require('./middlewares/error');
+const cors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(helmet());
-app.use(cookieParser());
-app.use(express.json());
-
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
+
+app.use(cors);
+
+app.use(helmet());
+app.use(cookieParser());
+app.use(express.json());
 
 app.use(routes); // all routes logic
 app.use(errors());
