@@ -59,7 +59,7 @@ function App() {
     if (loggedIn) {
       history.push("/");
     }
-  }, [loggedIn]);
+  }, []);
 
   const onLogin = ({ email, password }) => {
     return CardAuth.authorize(email, password).then((res) => {
