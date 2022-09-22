@@ -32,7 +32,8 @@ export class Api {
       headers: {
         authorization: this._token
       }
-    }).then(this._handleResponse);
+    }).then(this._handleResponse)
+
   }
 
   updateUserInfom(input) {
@@ -40,7 +41,8 @@ export class Api {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify(input),
-    }).then(this._handleResponse);
+    }).then(this._handleResponse)
+
   }
 
   addCardApi(input) {
