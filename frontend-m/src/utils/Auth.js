@@ -1,5 +1,6 @@
 const BASE_URL = "https://api.mesto.sovickiy.nomoredomains.sbs"
 
+
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
@@ -32,7 +33,7 @@ export const getContent = (token) => {
     headers: {
       'Accept': 'application/json',
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
 };
