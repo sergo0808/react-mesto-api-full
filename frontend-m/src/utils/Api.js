@@ -4,7 +4,7 @@ export class Api {
   constructor(config) {
     this.url = config.url;
     this.headers = config.headers;
-    this._token = config.headers.authorization;
+    this._token = this.headers.authorization;
   }
 
   getToken = (token) => { // Метод принимает токен и подставляет его в заголовок объекта api

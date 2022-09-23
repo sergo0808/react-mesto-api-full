@@ -63,6 +63,7 @@ function App() {
 
   const onLogin = ({ email, password }) => {
     return CardAuth.authorize(email, password).then((res) => {
+      console.log(res.token)
       if (res.token) {
         localStorage.setItem("token", res.token);
         setLoggedIn(true);
@@ -85,7 +86,6 @@ function App() {
   function getUserInfo() {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user, cards]) => {
-        console.log(user);
         setCurrentUser(user);
         setCards(cards);
       })

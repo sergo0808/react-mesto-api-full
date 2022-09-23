@@ -1,3 +1,5 @@
+const token = localStorage.getItem('token');
+
 const enableValidation = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -9,7 +11,7 @@ const enableValidation = {
 const config = {
   url: "https://api.mesto.sovickiy.nomoredomains.sbs",
   headers: {
-    authorization: "5a769756-07f6-441a-bbc2-3fc7a58dd4ed",
+    authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   },
 };

@@ -2,7 +2,6 @@ import authLogoErorr from "../images/error_reg.svg";
 import authLogo from "../images/success_reg.svg";
 
 function InfoTooltip(props) {
-  console.log(props.message);
   return (
     <div className={`popup popup_type_${props.name} ${props.isOpen && "popup_opened"}`}>
       <div className="popup__container popup__container-avatar">
