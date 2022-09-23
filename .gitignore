@@ -24,4 +24,3 @@ build
 .env.production.local
 .idea
 .vscode
-.env
