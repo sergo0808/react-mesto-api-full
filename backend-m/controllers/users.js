@@ -180,6 +180,7 @@ const login = (req, res, next) => {
         })
         .send({ message: 'Вы успешно авторизовались!' })
         .end();
+      console.log(token);
     })
     .catch(next);
 };
