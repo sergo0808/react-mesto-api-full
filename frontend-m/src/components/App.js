@@ -63,6 +63,7 @@ function App() {
 
   const onLogin = ({ email, password }) => {
     return CardAuth.authorize(email, password).then((res) => {
+      console.log(res)
       if (res.token) {
         localStorage.setItem("token", res.token);
         setLoggedIn(true);
