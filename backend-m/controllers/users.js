@@ -167,7 +167,6 @@ const login = (req, res, next) => {
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log(user);
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
@@ -179,7 +178,7 @@ const login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Вы успешно авторизовались!' })
+        .send({ message: 'Вы успешно авторизовались!', token })
         .end();
     })
     .catch(next);
