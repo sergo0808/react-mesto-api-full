@@ -7,7 +7,6 @@ const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-console.log(process.env.NODE_ENV); // production
 
 const getUsers = (_, res, next) => {
   User.find({})
