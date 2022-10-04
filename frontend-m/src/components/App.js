@@ -74,6 +74,7 @@ function App() {
   const onRegister = ({ email, password }) => {
     return CardAuth.register(email, password)
       .then((res) => {
+        console.log(res)
         setMessage(res.error);
         setIsWarningPopupOpen(true);
       })
