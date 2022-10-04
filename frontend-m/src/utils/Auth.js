@@ -23,6 +23,7 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   }).then((data) => {
+    console.log(data)
     return data.json();
   });
 };
