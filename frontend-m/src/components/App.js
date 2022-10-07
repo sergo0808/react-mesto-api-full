@@ -86,7 +86,7 @@ function App() {
 
   function getUserInfo() {
     debugger
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    return CardAuth.getContent()
       .then(([user, cards]) => {
         setCurrentUser(user);
         setCards(cards);
