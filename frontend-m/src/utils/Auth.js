@@ -28,9 +28,9 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password })
   })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
       }
     })
     .then((data) => {
