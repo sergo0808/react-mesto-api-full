@@ -165,15 +165,14 @@ const updAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign(
+      jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      res.send({ token })
+      res.send({ message: 'Вы выторизованы' })
 
         .end();
     })
