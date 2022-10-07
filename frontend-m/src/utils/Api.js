@@ -22,7 +22,7 @@ export class Api {
     return fetch(this.url + `/users/me`, {
       method: "GET",
       headers: {
-        authorization: this._token
+        authorization: this._token.replace('Bearer ', '')
       }
     }).then(this._handleResponse);
   }
