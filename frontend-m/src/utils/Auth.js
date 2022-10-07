@@ -1,6 +1,5 @@
 const BASE_URL = "https://api.mesto.sovickiy.nomoredomains.sbs"
 
-
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
