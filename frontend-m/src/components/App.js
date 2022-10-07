@@ -59,7 +59,7 @@ function App() {
     if (loggedIn) {
       history.push("/");
     }
-  }, []);
+  }, [loggedIn]);
 
   const onLogin = ({ email, password }) => {
     return CardAuth.authorize(email, password).then((res) => {
@@ -85,6 +85,7 @@ function App() {
   };
 
   function getUserInfo() {
+    debugger
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user, cards]) => {
         setCurrentUser(user);
