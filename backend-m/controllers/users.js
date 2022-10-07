@@ -27,7 +27,6 @@ const getUserById = (req, res, next) => {
         name: user.name,
         about: user.about,
         avatar: user.avatar,
-        password: user.password,
       });
     })
     .catch((err) => {
@@ -169,13 +168,12 @@ const login = (req, res, next) => {
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log(user);
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      res.send({ token })
+      res.send(user, { token })
 
         .end();
     })
