@@ -8,7 +8,7 @@ export class Api {
   }
 
   getToken = (token) => { // Метод принимает токен и подставляет его в заголовок объекта api
-    this._token = `Bearer ${token}`
+    this._token = token
   }
 
   _handleResponse(res) {
@@ -22,7 +22,7 @@ export class Api {
     return fetch(this.url + `/users/me`, {
       method: "GET",
       headers: {
-        authorization: this._token.replace('Bearer ', '')
+        authorization: this._token,
       }
     }).then(this._handleResponse);
   }
