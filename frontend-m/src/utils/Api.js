@@ -8,7 +8,7 @@ export class Api {
   }
 
   getToken = (token) => { // Метод принимает токен и подставляет его в заголовок объекта api
-    this._token = token
+    this._token = `Bearer ${token}`
   }
 
   _handleResponse(res) {
