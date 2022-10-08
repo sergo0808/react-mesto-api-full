@@ -85,11 +85,11 @@ function App() {
   };
 
   function getUserInfo() {
-    debugger
     return CardAuth.getContent()
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
+      .then((res) => {
+        console.log(res);
+        // setCurrentUser(user);
+        // setCards(cards);
       })
       .catch((err) => console.log(err));
   }
