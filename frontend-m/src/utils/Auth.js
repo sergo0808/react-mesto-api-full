@@ -43,9 +43,10 @@ export const authorize = (email, password) => {
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
-    Authorization: `Bearer ${token}`,
+
     headers: {
       'Accept': 'application/json',
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     }
   })

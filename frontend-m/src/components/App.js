@@ -39,12 +39,12 @@ function App() {
 
   const auth = async (token) => {
     const content = await CardAuth.getContent(token).then((data) => {
-      console.log(CardAuth);
       if (data) {
+
         setLoggedIn(true);
         setUserData(data.data.email);
       }
-    });
+    })
     return content;
   };
 
@@ -53,11 +53,17 @@ function App() {
     if (token) {
       auth(token);
     }
-  }, [loggedIn]);
+  }, []);
 
   useEffect(() => {
     if (loggedIn) {
       history.push("/");
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([user, cards]) => {
+          setCurrentUser(user.data);
+          setCards(cards);
+        })
+        .catch((err) => console.log(err));
     }
   }, [loggedIn]);
 
@@ -84,20 +90,6 @@ function App() {
       });
   };
 
-  function getUserInfo() {
-    return CardAuth.getContent()
-      .then((res) => {
-        console.log(res);
-        // setCurrentUser(user);
-        // setCards(cards);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
   function handleCardDelete(card) {
     api
       .deleteCardApi(card._id)
@@ -108,13 +100,24 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((item) => item._id === currentUser._id);
-    api
-      .likeCardApi(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-      })
-      .catch((err) => console.log(err));
+    const isLiked = card.likes.some((item) => item === currentUser._id);
+    function handleNewCardLike(newCard) {
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      setCards(newCards);
+    }
+    if (!isLiked) {
+      api.likeCardApi(card._id)
+        .then(handleNewCardLike)
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      api.dislikeCardApi(card._id)
+        .then(handleNewCardLike)
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 
   const handleCardClick = (card) => setSelectedCard(card);
@@ -147,6 +150,7 @@ function App() {
     api
       .updateUserInfom({ name, about })
       .then((data) => {
+        console.log(data)
         setCurrentUser(data);
         closeAllPopups();
       })
