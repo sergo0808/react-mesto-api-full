@@ -21,6 +21,11 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use(routes); // all routes logic
 app.use(errors());
 app.use(error); // centralized error handler

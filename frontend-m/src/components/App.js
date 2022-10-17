@@ -39,8 +39,8 @@ function App() {
 
   const auth = async (token) => {
     const content = await CardAuth.getContent(token).then((data) => {
+      console.log(data)
       if (data) {
-
         setLoggedIn(true);
         setUserData(data.data.email);
       }
@@ -53,7 +53,7 @@ function App() {
     if (token) {
       auth(token);
     }
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -69,7 +69,6 @@ function App() {
 
   const onLogin = ({ email, password }) => {
     return CardAuth.authorize(email, password).then((res) => {
-      console.log(res)
       if (res.token) {
         localStorage.setItem("token", res.token);
         setLoggedIn(true);
@@ -113,7 +112,7 @@ function App() {
       .updateUserInfom({ name, about })
       .then((data) => {
         console.log(data)
-        setCurrentUser(data);
+        setCurrentUser(data.data);
         closeAllPopups();
       })
       .catch((err) => console.log(err));
@@ -133,6 +132,7 @@ function App() {
     api
       .updateAvatarApi({ avatar })
       .then((data) => {
+        console.log(data)
         setCurrentUser(data);
         closeAllPopups();
       })

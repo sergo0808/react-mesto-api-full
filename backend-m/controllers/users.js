@@ -117,7 +117,7 @@ const updProfile = (req, res, next) => {
       throw new NotFoundError(`пользователь c id: ${req.user._id} не найден`);
     })
     .then((user) => {
-      res.send({ data: user });
+      res.send({ name: user.name, about: user.about });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {

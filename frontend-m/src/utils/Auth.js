@@ -35,6 +35,7 @@ export const authorize = (email, password) => {
       console.log(res);
     })
     .then((data) => {
+      console.log(data)
       localStorage.setItem('token', data.token);
       return data;
     })
@@ -43,7 +44,6 @@ export const authorize = (email, password) => {
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
-
     headers: {
       'Accept': 'application/json',
       "Authorization": `Bearer ${token}`,
