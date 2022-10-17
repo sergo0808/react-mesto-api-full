@@ -8,7 +8,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const cardDeleteButtonClassName = `element__group-basket ${isOwn && "element__group-basket_active "}`;
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
   const cardLikeButtonClassName = `element__group-like ${isLiked && "element__group-like_active "}`;
-  console.log(card);
 
   function handleClick() {
     onCardClick(card);

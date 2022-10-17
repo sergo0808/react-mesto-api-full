@@ -101,50 +101,12 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    function handleNewCardLike(newCard) {
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      setCards(newCards);
-    }
-    if (!isLiked) {
-      api.likeCardApi(card._id)
-        .then(handleNewCardLike)
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      api.dislikeCardApi(card._id)
-        .then(handleNewCardLike)
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => console.log(err));
   }
-
-  const handleCardClick = (card) => setSelectedCard(card);
-
-  const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(true);
-  };
-
-  const handleWarningPopupClick = () => {
-    setIsWarningPopupOpen(true);
-  };
-
-  const handleEditAvatarClick = () => {
-    setIsEditAvatarPopupOpen(true);
-  };
-
-  const handleAddPlaceClick = () => {
-    setIsAddPlacePopupOpen(true);
-  };
-
-  const closeAllPopups = () => {
-    setIsEditProfilePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsWarningPopupOpen(false);
-    setSelectedCard(null);
-  };
 
   function handleUpdateUser({ name, about }) {
     api
@@ -176,6 +138,33 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
+
+  const handleCardClick = (card) => setSelectedCard(card);
+
+  const handleEditProfileClick = () => {
+    setIsEditProfilePopupOpen(true);
+  };
+
+  const handleWarningPopupClick = () => {
+    setIsWarningPopupOpen(true);
+  };
+
+  const handleEditAvatarClick = () => {
+    setIsEditAvatarPopupOpen(true);
+  };
+
+  const handleAddPlaceClick = () => {
+    setIsAddPlacePopupOpen(true);
+  };
+
+  const closeAllPopups = () => {
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsWarningPopupOpen(false);
+    setSelectedCard(null);
+  };
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
