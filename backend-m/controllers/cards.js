@@ -5,6 +5,7 @@ const ForbiddenError = require('../errors/ForbiddenError');
 
 const getCards = (_, res, next) => {
   Card.find({})
+    .populate('user')
     .then((cards) => res.send(cards))
     .catch(next);
 };
@@ -13,7 +14,6 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: req.user._id })
-    // .populate('likes')
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
