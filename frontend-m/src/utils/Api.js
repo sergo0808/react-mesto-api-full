@@ -38,7 +38,7 @@ export class Api {
 
   updateUserInfom(input) {
     return fetch(this.url + `/users/me`, {
-      method: "PUTCH",
+      method: "PATCH",
       headers: this.headers,
       body: JSON.stringify(input),
     }).then(this._handleResponse)
