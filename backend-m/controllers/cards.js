@@ -65,11 +65,8 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true, runValidators: true },
   )
-    .orFail(() => {
-      throw new NotFoundError(`Карточка с id: ${cardId} не найдена`);
-    })
+    .populate('likes')
     .then((card) => {
-      console.log(card);
       res.status(201).send(card);
     })
     .catch((err) => {
