@@ -1,15 +1,16 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-
 const routes = require('./routes');
 const error = require('./middlewares/error');
 const cors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
+console.log(process.env.NODE_ENV);
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
