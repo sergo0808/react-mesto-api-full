@@ -7,6 +7,7 @@ const { errors } = require('celebrate');
 const routes = require('./routes');
 const error = require('./middlewares/error');
 const cors = require('./middlewares/cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -26,7 +27,8 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-app.use(routes); // all routes logic
+app.use(routes);
+app.use(requestLogger); // all routes logic
 app.use(errors());
 app.use(error); // centralized error handler
 
