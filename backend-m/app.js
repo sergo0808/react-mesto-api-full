@@ -29,7 +29,7 @@ app.get('/crash-test', () => {
 });
 
 app.use(requestLogger);
-app.use(routes); // all routes logic
+app.use(routes);
 app.use(errorLogger);
 app.use(errors());
 app.use(error); // centralized error handler
