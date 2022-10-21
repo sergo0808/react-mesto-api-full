@@ -116,7 +116,7 @@ const updProfile = (req, res, next) => {
       throw new NotFoundError(`пользователь c id: ${req.user._id} не найден`);
     })
     .then((user) => {
-      res.send({ name: user.name, about: user.about });
+      res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -166,7 +166,6 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      console.log(JWT_SECRET);
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
       return res.send({ token });
     })
