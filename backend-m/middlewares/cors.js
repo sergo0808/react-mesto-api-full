@@ -4,7 +4,6 @@ const allowedCors = [
 ];
 
 const cors = (req, res, next) => {
-  console.dir(req);
   const { origin } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
