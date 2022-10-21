@@ -79,12 +79,11 @@ function App() {
   const onRegister = ({ email, password }) => {
     return CardAuth.register(email, password)
       .then((res) => {
-        console.log(res)
         setMessage(res.error);
         setIsWarningPopupOpen(true);
       })
-      .catch((res) => {
-        setMessage(res.error);
+      .catch((err) => {
+        setMessage(err.message);
         setIsWarningPopupOpen(true);
       });
   };
