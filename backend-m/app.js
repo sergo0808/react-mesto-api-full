@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(helmet());
 app.use(cookieParser());
-app.use(express.json());
+app.use(app.json());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
