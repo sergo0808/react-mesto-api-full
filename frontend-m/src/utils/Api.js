@@ -21,17 +21,13 @@ export class Api {
   getUserInfo() {
     return fetch(this.url + `/users/me`, {
       method: "GET",
-      headers: {
-        authorization: this._token,
-      }
+      headers: this.headers,
     }).then(this._handleResponse);
   }
 
   getInitialCards() {
     return fetch(this.url + `/cards`, {
-      headers: {
-        authorization: this._token
-      }
+      headers: this.headers,
     }).then(this._handleResponse)
 
   }

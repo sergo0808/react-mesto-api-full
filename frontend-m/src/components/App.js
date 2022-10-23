@@ -63,6 +63,7 @@ function App() {
       history.push("/");
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([user, cards]) => {
+          console.log(user)
           setCurrentUser(user.data);
           setCards(cards);
         })
