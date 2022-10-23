@@ -30,8 +30,10 @@ function App() {
   const [userData, setUserData] = useState("");
   const [message, setMessage] = useState("");
   const history = useHistory();
+  console.log(currentUser);
 
   const signOut = () => {
+    CardAuth.signOut();
     localStorage.removeItem("token");
     setLoggedIn(false);
     history.push("/signin");
@@ -43,6 +45,7 @@ function App() {
       if (data) {
         setLoggedIn(true);
         setUserData(data.data.email);
+        setCurrentUser(data.data);
       }
     })
     return content;
@@ -79,11 +82,12 @@ function App() {
   const onRegister = ({ email, password }) => {
     return CardAuth.register(email, password)
       .then((res) => {
+        console.log(res)
         setMessage(res.error);
         setIsWarningPopupOpen(true);
       })
-      .catch((err) => {
-        setMessage(err.message);
+      .catch((res) => {
+        setMessage(res.error);
         setIsWarningPopupOpen(true);
       });
   };
@@ -110,7 +114,8 @@ function App() {
     api
       .updateUserInfom({ name, about })
       .then((data) => {
-        setCurrentUser(data);
+        console.log(data)
+        setCurrentUser(data.data);
         closeAllPopups();
       })
       .catch((err) => console.log(err));
@@ -130,8 +135,7 @@ function App() {
     api
       .updateAvatarApi({ avatar })
       .then((data) => {
-        console.log(data)
-        setCurrentUser(data.avatar);
+        setCurrentUser(data);
         closeAllPopups();
       })
       .catch((err) => console.log(err));

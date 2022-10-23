@@ -56,3 +56,12 @@ export const getContent = (token) => {
       }
     })
 };
+
+export const signOut = () => {
+  return fetch(`${BASE_URL}/signout`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+} 
