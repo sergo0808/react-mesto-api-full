@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { api } from "../utils/Api";
+import api from "../utils/Api";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -36,12 +36,24 @@ function App() {
     CardAuth.signOut();
     localStorage.removeItem("token");
     setLoggedIn(false);
+    setCurrentUser({});
+    setCards([]);
     history.push("/signin");
   };
 
+  const onLogin = ({ email, password }) => {
+    return CardAuth.authorize(email, password).then((res) => {
+      if (res.token) {
+        console.log(res)
+        localStorage.setItem("token", res.token);
+        setLoggedIn(true);
+      }
+    });
+  };
+
+
   const auth = async (token) => {
     const content = await CardAuth.getContent(token).then((data) => {
-      console.log(data)
       if (data) {
         setLoggedIn(true);
         setUserData(data.data.email);
@@ -55,30 +67,23 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       auth(token);
+      history.push("/");
     }
   }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
-      history.push("/");
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([user, cards]) => {
           console.log(user)
           setCurrentUser(user.data);
           setCards(cards);
+
         })
         .catch((err) => console.log(err));
     }
   }, [loggedIn]);
 
-  const onLogin = ({ email, password }) => {
-    return CardAuth.authorize(email, password).then((res) => {
-      if (res.token) {
-        localStorage.setItem("token", res.token);
-        setLoggedIn(true);
-      }
-    });
-  };
 
   const onRegister = ({ email, password }) => {
     return CardAuth.register(email, password)

@@ -1,15 +1,11 @@
-import { config } from "./constants";
-
+const token = localStorage.getItem('token')
 export class Api {
   constructor(config) {
     this.url = config.url;
     this.headers = config.headers;
-    this._token = config.headers.authorization;
   }
 
-  getToken = (token) => { // Метод принимает токен и подставляет его в заголовок объекта api
-    this._token = `Bearer ${token}`
-  }
+  _getToken = () => localStorage.getItem('token');
 
   _handleResponse(res) {
     if (res.ok) {
@@ -21,13 +17,14 @@ export class Api {
   getUserInfo() {
     return fetch(this.url + `/users/me`, {
       method: "GET",
-      headers: this.headers,
+      headers: { authorization: `Bearer ${this._getToken()}` },
     }).then(this._handleResponse);
   }
 
   getInitialCards() {
     return fetch(this.url + `/cards`, {
-      headers: this.headers,
+      headers: { authorization: `Bearer ${this._getToken()}` },
+
     }).then(this._handleResponse)
 
   }
@@ -72,4 +69,13 @@ export class Api {
   }
 }
 
-export const api = new Api(config);
+const api = new Api({
+  url: "https://api.mesto.sovickiy.nomoredomains.sbs",
+  headers: {
+    authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+
+  },
+});
+
+export default api;
