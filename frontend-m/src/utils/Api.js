@@ -1,4 +1,5 @@
 const token = localStorage.getItem('token')
+
 export class Api {
   constructor(config) {
     this.url = config.url;
@@ -17,13 +18,19 @@ export class Api {
   getUserInfo() {
     return fetch(this.url + `/users/me`, {
       method: "GET",
-      headers: { authorization: `Bearer ${this._getToken()}` },
+      headers: {
+        authorization: `Bearer ${this._getToken()}`,
+        "Content-Type": "application/json",
+      },
     }).then(this._handleResponse);
   }
 
   getInitialCards() {
     return fetch(this.url + `/cards`, {
-      headers: { authorization: `Bearer ${this._getToken()}` },
+      headers: {
+        authorization: `Bearer ${this._getToken()}`,
+        "Content-Type": "application/json",
+      },
 
     }).then(this._handleResponse)
 
@@ -32,7 +39,10 @@ export class Api {
   updateUserInfom(input) {
     return fetch(this.url + `/users/me`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        authorization: `Bearer ${this._getToken()}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(input),
     }).then(this._handleResponse)
 
@@ -41,7 +51,10 @@ export class Api {
   addCardApi(input) {
     return fetch(this.url + `/cards`, {
       method: "POST",
-      headers: this.headers,
+      headers: {
+        authorization: `Bearer ${this._getToken()}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(input),
     }).then(this._handleResponse);
   }
@@ -49,21 +62,27 @@ export class Api {
   changeLikeCardStatus(id, isLiked) {
     return fetch(this.url + `/cards/` + id + "/likes", {
       method: isLiked ? "PUT" : "DELETE",
-      headers: this.headers,
+      headers: {
+        authorization: `Bearer ${this._getToken()}`,
+        "Content-Type": "application/json",
+      },
     }).then(this._handleResponse);
   }
 
   deleteCardApi(id) {
     return fetch(this.url + `/cards/` + id, {
       method: "DELETE",
-      headers: this.headers,
+      headers: { authorization: `Bearer ${this._getToken()}` },
     }).then(this._handleResponse);
   }
 
   updateAvatarApi(avatar) {
     return fetch(this.url + `/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        authorization: `Bearer ${this._getToken()}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(avatar),
     }).then(this._handleResponse);
   }

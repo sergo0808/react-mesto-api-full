@@ -30,7 +30,7 @@ function App() {
   const [userData, setUserData] = useState("");
   const [message, setMessage] = useState("");
   const history = useHistory();
-  console.log(currentUser);
+
 
   const signOut = () => {
     CardAuth.signOut();
@@ -44,7 +44,7 @@ function App() {
   const onLogin = ({ email, password }) => {
     return CardAuth.authorize(email, password).then((res) => {
       if (res.token) {
-        console.log(res)
+
         localStorage.setItem("token", res.token);
         setLoggedIn(true);
       }
@@ -75,7 +75,6 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([user, cards]) => {
-          console.log(user)
           setCurrentUser(user.data);
           setCards(cards);
 
@@ -89,11 +88,12 @@ function App() {
     return CardAuth.register(email, password)
       .then((res) => {
         console.log(res)
-        setMessage(res.error);
+        setMessage(res);
         setIsWarningPopupOpen(true);
       })
-      .catch((res) => {
-        setMessage(res.error);
+      .catch((err) => {
+        console.log(err)
+        // setMessage(err.message);
         setIsWarningPopupOpen(true);
       });
   };
@@ -120,7 +120,6 @@ function App() {
     api
       .updateUserInfom({ name, about })
       .then((data) => {
-        console.log(data)
         setCurrentUser(data.data);
         closeAllPopups();
       })
