@@ -4,3 +4,9 @@
   flex-direction: row;
   list-style-type: none;
 }
+
+@media screen and (max-width: 920px) {
+  .header__info {
+    margin-right: 29px;
+  }
+}

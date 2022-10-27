@@ -13,10 +13,10 @@
   
 }
 
+
 @media screen and (max-width: 600px) {
-  .popup__input {
+  .login__input {
     max-width: 238px;
   }
 }
-
 

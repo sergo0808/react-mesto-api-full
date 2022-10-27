@@ -18,7 +18,7 @@ function InfoTooltip(props) {
             <img className="popup__warning" src={authLogo} alt="статус регистрации"></img>
           )}
           {props.message ? (
-            <p className="popup__text">Что-то пошло не так! Попробуйте ещё раз.</p>
+            <p className="popup__text">{props.message}</p>
           ) : (
             <p className="popup__text">Вы успешно зарегистрировались!</p>
           )}

@@ -95,7 +95,7 @@ const createUser = (req, res, next) => {
       } else if (err.code === 11000) {
         next(
           new ConflictError(
-            'Пользователь с таким электронным адресом уже существуетnnn',
+            'Пользователь с таким электронным адресом уже существует',
           ),
         );
       } else {
